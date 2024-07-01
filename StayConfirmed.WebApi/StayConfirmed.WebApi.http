@@ -1,0 +1,6 @@
+@StayConfirmed.WebApi_HostAddress = http://localhost:5033
+
+GET {{StayConfirmed.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
