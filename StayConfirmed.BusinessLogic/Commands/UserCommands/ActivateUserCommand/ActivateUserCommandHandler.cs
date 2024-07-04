@@ -13,17 +13,42 @@ public class ActivateUserCommandHandler(IDataProtectionProvider protectionProvid
     private readonly IDataProtector _dataProtector = protectionProvider.CreateProtector("UserActivation");
     public Task<ActivateUserCommandResponse> Handle(ActivateUserCommandRequest command)
     {
-        var stringFromToken = _dataProtector.Unprotect(command.Token);
-        var jsonResult = JsonSerializer.Deserialize<UserActivationToken>(stringFromToken);
+        try
+        {
+            var stringFromToken = _dataProtector.Unprotect(command.Token);
+            var jsonResult = JsonSerializer.Deserialize<UserActivationToken>(stringFromToken);
 
-        var user = context.Users
-            .Where(u => u.Email.Equals(jsonResult.Email))
-            .FirstOrDefault();
+            var user = context.Users
+                .Where(u => u.Email.Equals(jsonResult.Email))
+                .FirstOrDefault();
 
-        user.IsActive = true;
-        context.Users.Update(user);
-        context.SaveChanges();
+            if (user == null)
+            {
+                return Task.FromResult(new ActivateUserCommandResponse
+                {
+                    Status = false,
+                    Message = "User not found"
+                });
+            }
+            
+            user.IsActive = true;
+            context.Users.Update(user);
+            context.SaveChanges();
 
-        return Task.FromResult(new ActivateUserCommandResponse());
+            return Task.FromResult(new ActivateUserCommandResponse 
+            {
+                Status = true,
+                Message = "User activated successfully"
+            });
+        }
+        catch (Exception ex)
+        {
+            return Task.FromResult(new ActivateUserCommandResponse
+            {
+                Status = false,
+                Message = ex.Message
+            });
+        }
+
     }
 }

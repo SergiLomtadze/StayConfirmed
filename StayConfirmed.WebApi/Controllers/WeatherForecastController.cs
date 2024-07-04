@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StayConfirmed.WebApi.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

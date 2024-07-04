@@ -46,11 +46,12 @@ public class UserActivationCommandHandler(IDataProtectionProvider protectionProv
             if (result.Equals("S"))
             {
                 res.Status = true;
+                res.Message = "Activation Mail Sent";
             }
             if (result.Equals("E"))
             {
                 res.Status = false;
-                res.Error = "Invalid email";
+                res.Message = "Invalid email";
             }
             return Task.FromResult(res);
         }
@@ -58,7 +59,7 @@ public class UserActivationCommandHandler(IDataProtectionProvider protectionProv
         {
             var res = new UserActivationCommandResponse();
             res.Status = false;
-            res.Error = ex.Message;
+            res.Message = ex.Message;
             return Task.FromResult(res);
         }
     }

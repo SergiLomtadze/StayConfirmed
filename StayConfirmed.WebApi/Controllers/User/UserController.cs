@@ -13,7 +13,6 @@ namespace StayConfirmed.WebApi.Controllers.User
     public class UserController(CommandInvoker commandInvoker) : ControllerBase
     {
         [HttpGet("GetUserSecret")]
-        [Authorize]
         public async Task<ActionResult<string>> GetUserSecret(string email)
         {
             var userStatusResponse = await commandInvoker.Invoke(new GetUserStatusQueryRequest());
@@ -41,11 +40,11 @@ namespace StayConfirmed.WebApi.Controllers.User
 
             if (result.Status)
             {
-                return Ok("Activation Mail Sent");
+                return Ok(result.Message);
             }
             else
             {
-                return BadRequest(result.Error);
+                return BadRequest(result.Message);
             }
         }
 
@@ -56,7 +55,15 @@ namespace StayConfirmed.WebApi.Controllers.User
             {
                 Token = token
             });
-            return Ok();
+
+            if (result.Status)
+            {
+                return Ok(result.Message);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
         }
     }
 }
