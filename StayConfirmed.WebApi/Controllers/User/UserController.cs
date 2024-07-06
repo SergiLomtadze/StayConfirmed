@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using StayConfirmed.BusinessLogic.CommandExecutor;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.ActivateUserCommands;
+using StayConfirmed.BusinessLogic.Commands.UserCommands.ForgotPassowrdCommand;
+using StayConfirmed.BusinessLogic.Commands.UserCommands.ResetPasswordCommand;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.UserActivationCommand;
 using StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserQuery;
 using StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserStatusQuery;
+using StayConfirmed.WebApi.Dto.UserDto;
 
 namespace StayConfirmed.WebApi.Controllers.User
 {
@@ -65,5 +69,49 @@ namespace StayConfirmed.WebApi.Controllers.User
                 return BadRequest(result.Message);
             }
         }
+
+        [HttpPost("ForgotPassword")]
+        public async Task<ActionResult<string>> ForgotPassword([FromBody] ForgotPasswordDto forgotPassword)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var result = await commandInvoker.Invoke(new ForgotPasswordCommandRequest
+            {
+                Email = forgotPassword.Email
+            });
+
+            if (result.Status)
+            {
+                return Ok(result.Message);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
+        [HttpPost("ResetPassword")]
+        public async Task<ActionResult<string>> ResetPassword([FromBody] ResetPasswordDto resetPassword)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var result = await commandInvoker.Invoke(new ResetPasswordCommandRequest
+            {
+                Token = resetPassword.Token,
+                Password = resetPassword.Password
+            });
+
+            if (result.Status)
+            {
+                return Ok(result.Message);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
     }
 }

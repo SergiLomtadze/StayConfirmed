@@ -32,6 +32,7 @@ public class ActivateUserCommandHandler(IDataProtectionProvider protectionProvid
             }
             
             user.IsActive = true;
+            user.EmailConfirmed = true;
             context.Users.Update(user);
             context.SaveChanges();
 
