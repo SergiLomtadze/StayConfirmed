@@ -7,7 +7,7 @@ namespace StayConfirmed.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CsvController(CommandInvoker commandInvoker) : ControllerBase
+    public class FileController(CommandInvoker commandInvoker) : ControllerBase
     {
         [HttpPost("UploadFile")]
         public async Task<IActionResult> UploadCsv(IFormFile file)
@@ -32,14 +32,24 @@ namespace StayConfirmed.WebApi.Controllers
             }
         }
 
-        [HttpGet("ExportTempalate")]
-        public async Task<IActionResult> ExportTempalate()
+        [HttpGet("ExportReservationCheckXlsxTempalate")]
+        public async Task<IActionResult> ExportXlsxTempalate()
         {
             var result = await commandInvoker.Invoke(new ExportTemplateQueryRequest { });
             return File(
                 result.Bytes, 
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", 
-                "example1.xlsx");
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "ReservationCheckTemplate.xlsx");
+        }
+
+        [HttpGet("ExportReservationCheckCsvTempalate")]
+        public async Task<IActionResult> ExportCsvTempalate()
+        {
+            var result = await commandInvoker.Invoke(new ExportTemplateQueryRequest { });
+            return File(
+                result.Bytes,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "ReservationCheckTemplate.csv");
         }
     }
 }
