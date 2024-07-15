@@ -1,22 +1,57 @@
 import { changeLanguage } from 'i18next';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
+import ReactCountryFlag from 'react-country-flag';
+import { useTranslation } from 'react-i18next';
 
 interface LayoutProps {
     children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+    const { i18n } = useTranslation();
+    const [activeLanguage, setActiveLanguage] = useState<string>(i18n.language);
+
+    useEffect(() => {
+        setActiveLanguage(i18n.language);
+    }, [i18n.language]);
+
     return (
         <div className="bg-primary-reverse bg-primary-50">
-            <div className="flex justify-content-end">
-                <button className="btn" onClick={() => changeLanguage('en')}>English</button>
-                <button className="btn" onClick={() => changeLanguage('it')}>Italiano</button>
+            <div className="flex justify-content-end me-3">
+                <button
+                    className={`btn btn-language`}
+                    onClick={() => changeLanguage('en')}>
+                    <ReactCountryFlag
+                        countryCode="GB"
+                        svg
+                        title="English"
+                        style={{
+                            width: activeLanguage === 'en' ? '2.5em' : '2em',
+                            height: activeLanguage === 'en' ? '2.5em' : '2em',
+                            filter: activeLanguage === 'en' ? 'none' : 'blur(0.7px)',
+                            transition: 'all 0.2s ease-in-out'
+                        }} />
+                </button>
+                <button
+                    className={`btn btn-language`}
+                    onClick={() => changeLanguage('it')}>
+                    <ReactCountryFlag
+                        countryCode="IT"
+                        svg
+                        title="Italian"
+                        style={{
+                            width: activeLanguage === 'it' ? '2.5em' : '2em',
+                            height: activeLanguage === 'it' ? '2.5em' : '2em',
+                            filter: activeLanguage === 'it' ? 'none' : 'blur(0.7px)',
+                            transition: 'all 0.2s ease-in-out'
+                        }} />
+                </button>
             </div>
             <div className="flex justify-content-center">
                 <div className="w-full lg:w-5 h-screen text-center flex justify-content-center align-items-start">
                     {children}
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" className="absolute bottom-0 w-screen" viewBox="0 0 1440 250">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" className="svg-background" viewBox="0 0 1440 250" preserveAspectRatio="xMidYMid slice">
                     <defs>
                         <linearGradient id="c" x1="50%" x2="50%" y1="0%" y2="100%">
                             <stop offset="0%" stopColor="var(--primary-200)" />
@@ -41,6 +76,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <path fill="url(#d)" d="M0 107c225.333 61.333 364.333 92 417 92 79 0 194-79.5 293-79.5S914 244 1002 244s156-45 195-68.5c26-15.667 107-74.167 243-175.5v357.5H0V107z" transform="translate(0 .5)" />
                     </g>
                 </svg>
+
             </div>
         </div>
     );

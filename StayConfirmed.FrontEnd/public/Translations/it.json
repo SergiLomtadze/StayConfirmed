@@ -1,18 +1,39 @@
 {
+  "Common": {
+    "Errors": {
+      "SendEmail": "Errore durante invio della mail, si prega di riprovare.",
+      "UserActivation": "Errore durante l'attivazione dell'utenza, si prega di riprovare.",
+      "UserActivationRequest": "Errore durante la richiesta di attivazione dell'utenza, si prega di riprovare."
+    }
+  },
   "Auth": {
+    "ActivateUserRequest": {
+      "Header": "StayConfirmed",
+      "SubHeader": "Utilizzare il form per richiedere l'attivazione dell'utenza",
+      "Button": "Richiedere",
+      "Link": "Ritornare al Login"
+    },
+    "ActivateUser": {
+      "Header": "StayConfirmed",
+      "SubHeader": "Fare click sul pulsante qui sotto per procedere all'attivazione dell'utenza",
+      "Button": "Attivare",
+      "Link": "Ritornare al Login"
+    },
     "Login": {
       "Header": "StayConfirmed",
-      "SubHeader": "Buongiorno, utilizzi il il form per accedere alla rete StayConfirmed",
-      "Button": "Accedi",
+      "SubHeader": "Utilizzare il form per accedere alla rete StayConfirmed",
+      "Button": "Accedere",
       "Link": "Password Dimenticata?"
     },
     "ResetPassword": {
       "Header": "StayConfirmed",
-      "SubHeader": "Compili il form per richiedere il reset della password",
+      "SubHeader": "Compilare il form per richiedere il reset della password",
+      "SubHeaderSuccess": "Se l'utenza è esistente, verrà inviata una mail all'indirizzo indicato",
       "Button": "Reset",
-      "Link": "Ritorna al Login"
+      "Link": "Ritornare al Login"
     },
     "Username": "Nome utente",
-    "Password": "Password"
+    "Password": "Password",
+    "Email": "Email"
   }
 }

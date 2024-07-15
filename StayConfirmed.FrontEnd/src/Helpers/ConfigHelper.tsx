@@ -1,5 +1,5 @@
 export interface Config {
-    apiUrl: string;
+    APIUrl: string;
     CDN: string;
 }
 

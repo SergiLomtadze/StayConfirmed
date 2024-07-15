@@ -9,7 +9,13 @@ export const Paths: { [key: string]: PathValue } = {
     ResetPassword: {
         value: '/auth/reset-password'
     },
+    ActivateUser: {
+        value: "/auth/activate-user"
+    },
+    ActivateUserRequest: {
+        value: "/auth/activate-user-request"
+    },
     Logo: {
         value: "images/logo-white.png"
-    }
+    },
 };

@@ -17,12 +17,12 @@ export const Login: React.FC = () => {
 
     return (
         <div className="z-5 w-full lg:w-8 px-6 text-center mt-8" style={{ maxWidth: '400px' }}>
-            <div className="w-full flex align-items-center justify-content-center">
-                <img src={config.CDN+ Paths.Logo.value} alt="logo" className="w-6rem" />
+            <div className="w-full flex align-items-center justify-content-center m-3">
+                <img src={config.CDN+ Paths.Logo.value} alt="logo" className="w-25rem" />
             </div>
-            <h1 className="text-4xl font-light mt-4 text-primary-500">
-                {t("Auth.Login.Header")}
-            </h1>
+            {/*<h1 className="text-4xl font-light mt-4 text-primary-500">*/}
+            {/*    {t("Auth.Login.Header")}*/}
+            {/*</h1>*/}
             <p>
                 {t("Auth.Login.SubHeader")}
             </p>
@@ -35,7 +35,7 @@ export const Login: React.FC = () => {
                     {t("Auth.Password")}
                 </label>
                 <InputText id="password" type="password" className="w-full" />
-                <div className="flex align-items-center justify-content-between mt-4 gap-3">
+                <div className="flex align-items-center justify-content-center mt-4 gap-3">
                     <Button label={t("Auth.Login.Button")} className="w-10rem"></Button>
                     <a onClick={() => NavigateTo('ResetPassword')} className="text-primary secondary-button cursor-pointer">
                         {t("Auth.Login.Link")}

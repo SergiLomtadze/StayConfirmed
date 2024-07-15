@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 const isAuthenticated = (): boolean => {
-    return true;
+    return false;
 };
 interface ProtectedRouteProps {
     element: JSX.Element;

@@ -13,6 +13,8 @@ import { Error } from "./Layout/Error";
 
 import { Login } from "./Pages/Authentication/Login";
 import { ResetPassword } from "./Pages/Authentication/ResetPassword";
+import Activate from "./Pages/Authentication/Activate";
+import { RequestUserActivation } from "./Pages/Authentication/RequestUserActivation";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +24,8 @@ const router = createBrowserRouter([
         children: [
             { path: Paths["Login"].value, element: <Login /> },
             { path: Paths["ResetPassword"].value, element: <ResetPassword /> },
+            { path: Paths["ActivateUser"].value + "/:token", element: <Activate /> },
+            { path: Paths["ActivateUserRequest"].value, element: <RequestUserActivation /> }
         ],
     },
     {

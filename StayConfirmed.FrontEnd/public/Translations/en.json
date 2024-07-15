@@ -1,8 +1,27 @@
 {
+  "Common": {
+    "Errors": {
+      "SendEmail": "Error, we cannot send this email, please try again.",
+      "UserActivation": "Error, we cannot activate your user, please try again.",
+      "UserActivationRequest": "Error, we cannot send user activation request, please try again."
+    }
+  },
   "Auth": {
+    "ActivateUserRequest": {
+      "Header": "StayConfirmed",
+      "SubHeader": "Please use the form to request user activation",
+      "Button": "Send",
+      "Link": "Return to Login"
+    },
+    "ActivateUser": {
+      "Header": "StayConfirmed",
+      "SubHeader": "Please click on the button below to start user activation",
+      "Button": "Activate",
+      "Link": "Return to Login"
+    },
     "Login": {
       "Header": "StayConfirmed",
-      "SubHeader": "Welcome, please use the form to sign-in StayConfirmed network",
+      "SubHeader": "Please use the form to sign-in StayConfirmed network",
       "Button": "Login",
       "Link": "Forgot Password?"
     },
@@ -13,6 +32,7 @@
       "Link": "Return to Login"
     },
     "Username": "Username",
-    "Password": "Password"
+    "Password": "Password",
+    "Email": "Email"
   }
 }

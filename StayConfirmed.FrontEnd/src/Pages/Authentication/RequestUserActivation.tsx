@@ -7,7 +7,7 @@ import { Paths } from "../../Common/Paths";
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
-export const ResetPassword: React.FC = () => {
+export const RequestUserActivation: React.FC = () => {
     const { t } = useTranslation();
     const [email, setEmail] = useState<string>("");
     const [sendStatus, setSendStatus] = useState<boolean>(false);
@@ -19,15 +19,15 @@ export const ResetPassword: React.FC = () => {
         navigate(Paths[path].value);
     };
 
-    const handleResetPassword = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleRequestUser = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            await axios.post(config.APIUrl + "User/ForgotPassword", { email });
+            await axios.post(config.APIUrl + "User/RequestUserActivation", { email });
             setSendStatus(true);
             setSendErrors(null);
         } catch (error) {
             console.error(error);
-            setSendErrors(t("Common.Errors.SendEmail"));
+            setSendErrors(t("Common.Errors.UserActivationRequest"));
         }
     };
 
@@ -42,11 +42,11 @@ export const ResetPassword: React.FC = () => {
                     {/*    {t("Auth.ResetPassword.Header")}*/}
                     {/*</h1>*/}
                     <p>
-                        {t("Auth.ResetPassword.SubHeaderSuccess")}
+                        {t("Auth.ActivateUserRequest.SubHeaderSuccess")}
                     </p>
                     <div className="flex align-items-center justify-content-center mt-4 gap-3">
                         <a onClick={() => NavigateTo('Login')} className="text-primary secondary-button cursor-pointer">
-                            {"Auth.ResetPassword.Link"}
+                            {"Auth.ActivateUserRequest.Link"}
                         </a>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ export const ResetPassword: React.FC = () => {
                     {/*    {t("Auth.ResetPassword.Header")}*/}
                     {/*</h1>*/}
                     <p>
-                        {t("Auth.ResetPassword.SubHeader")}
+                        {t("Auth.ActivateUserRequest.SubHeader")}
                     </p>
                     {
                         sendError &&
@@ -69,15 +69,15 @@ export const ResetPassword: React.FC = () => {
                             {t(sendError)}
                         </p>
                     }
-                    <form onSubmit={handleResetPassword} className="mt-5 text-left">
+                    <form onSubmit={handleRequestUser} className="mt-5 text-left">
                         <label htmlFor="email" className="block mb-2" style={{ color: '#4c566a' }}>
                             {t("Auth.Email")}
                         </label>
                         <InputText id="email" type="email" className="w-full" value={email} onChange={(e) => setEmail(e.target.value)} required />
                         <div className="flex align-items-center justify-content-center mt-4 gap-3">
-                            <Button label={t("Auth.ResetPassword.Button")} type="submit" className="w-10rem"></Button>
+                            <Button label={t("Auth.ActivateUserRequest.Button")} type="submit" className="w-10rem"></Button>
                             <a onClick={() => NavigateTo('Login')} className="text-primary secondary-button cursor-pointer">
-                                {t("Auth.ResetPassword.Link")}
+                                {t("Auth.ActivateUserRequest.Link")}
                             </a>
                         </div>
                     </form>
@@ -86,4 +86,4 @@ export const ResetPassword: React.FC = () => {
     );
 };
 
-export default ResetPassword;
+export default RequestUserActivation;
