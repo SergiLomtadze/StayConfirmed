@@ -1,0 +1,18 @@
+{
+  "Auth": {
+    "Login": {
+      "Header": "StayConfirmed",
+      "SubHeader": "Buongiorno, utilizzi il il form per accedere alla rete StayConfirmed",
+      "Button": "Accedi",
+      "Link": "Password Dimenticata?"
+    },
+    "ResetPassword": {
+      "Header": "StayConfirmed",
+      "SubHeader": "Compili il form per richiedere il reset della password",
+      "Button": "Reset",
+      "Link": "Ritorna al Login"
+    },
+    "Username": "Nome utente",
+    "Password": "Password"
+  }
+}
