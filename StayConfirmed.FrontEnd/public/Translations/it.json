@@ -23,13 +23,17 @@
       "Header": "StayConfirmed",
       "SubHeader": "Utilizzare il form per accedere alla rete StayConfirmed",
       "Button": "Accedere",
-      "Link": "Password Dimenticata?"
+      "Link": "Password Dimenticata?",
+      "Register": "Utente non esistente?"
     },
     "Register": {
       "Header": "Registrazione",
       "Button": "Procedi",
+      "Link": "Ritorna al Login",
       "Form": {
         "Required": "è richiesto",
+        "Invalid": "non è valido",
+        "Mismatch": "non corrisponde",
         "Company": {
           "Header": "Informazioni Azienda",
           "Name": "Nome",

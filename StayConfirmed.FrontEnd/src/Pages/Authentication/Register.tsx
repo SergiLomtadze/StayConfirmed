@@ -3,11 +3,13 @@ import { InputText } from 'primereact/inputtext';
 import { FloatLabel } from 'primereact/floatlabel';
 import { Button } from 'primereact/button';
 import { useTranslation } from 'react-i18next';
+import { InputMask } from 'primereact/inputmask';
 import { Paths } from '../../Common/Paths';
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { classNames } from 'primereact/utils';
+import { validateEmail, validatePassword, validateVAT } from '../../Common/Utility';
 
 interface FormData {
     CompanyName: string | null;
@@ -45,9 +47,11 @@ const defaultValues: FormData = {
 
 const Register: React.FC = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors }
     } = useForm<FormData>({ defaultValues });
 
@@ -55,9 +59,29 @@ const Register: React.FC = () => {
         console.log(data);
     };
 
+    const NavigateTo = (path: string) => {
+        navigate(Paths[path].value);
+    };
+
     const footerTemplate = () => (
-        <Button type="submit" label={t("Auth.Register.Button")} />
+        <>
+            <div className="row">
+                <div className="col">
+                    <Button type="submit" label={t("Auth.Register.Button")} />
+                </div>
+            </div>
+            <div className="row">
+
+                <div className="col">
+                    <a onClick={() => NavigateTo('Login')} className="text-primary secondary-button cursor-pointer">
+                        {t("Auth.Register.Link")}
+                    </a>
+                </div>
+            </div>
+        </>
     )
+
+    const password = watch('UserPassword', defaultValues.UserPassword); // Ensure the type is string
 
     return (
         <div className="z-5 w-full lg:w-8 px-6 text-center mt-2" style={{ minWidth: '90vw' }}>
@@ -71,7 +95,7 @@ const Register: React.FC = () => {
                                 </div>
                             </div>
                             <div className="row mb-3">
-                                <div className="col-md-12 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyName">{t("Auth.Register.Form.Company.Name")}</label>
                                         <InputText
@@ -94,13 +118,17 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-12 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyVAT">{t("Auth.Register.Form.Company.VAT")}</label>
                                         <InputText
                                             id="CompanyVAT"
                                             {
-                                            ...register('CompanyVAT')
+                                            ...register('CompanyVAT',
+                                                {
+                                                    required: t("Auth.Register.Form.Company.VAT") + " " + t("Auth.Register.Form.Required"),
+                                                    validate: (value) => value && validateVAT(value) || t("Auth.Register.Form.Company.VAT") + " " + t("Auth.Register.Form.Invalid")
+                                                })
                                             }
                                             className={
                                                 classNames({ 'p-invalid': errors.CompanyVAT })
@@ -113,10 +141,11 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyPhone">{t("Auth.Register.Form.Company.Phone")}</label>
-                                        <InputText
+                                        <InputMask
+                                            mask="+99-9999999999"
                                             id="CompanyPhone"
                                             {
                                             ...register(
@@ -136,16 +165,18 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyEmail">{t("Auth.Register.Form.Company.Email")}</label>
                                         <InputText
                                             id="CompanyEmail"
+                                            keyfilter="email"
                                             {
                                             ...register(
                                                 'CompanyEmail',
                                                 {
-                                                    required: t("Auth.Register.Form.Company.Email") + " " + t("Auth.Register.Form.Required")
+                                                    required: t("Auth.Register.Form.Company.Email") + " " + t("Auth.Register.Form.Required"),
+                                                    validate: (value) => value && validateEmail(value) || t("Auth.Register.Form.Company.Email") + " " + t("Auth.Register.Form.Invalid")
                                                 })
                                             }
                                             className={
@@ -159,7 +190,7 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-12 mb-3">
+                                <div className="col-md-12 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyAddress">{t("Auth.Register.Form.Company.Address")}</label>
                                         <InputText
@@ -182,7 +213,7 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-3 mb-3">
+                                <div className="col-md-3 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyCity">{t("Auth.Register.Form.Company.City")}</label>
                                         <InputText
@@ -205,7 +236,7 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-3 mb-3">
+                                <div className="col-md-3 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyZIP">{t("Auth.Register.Form.Company.ZIP")}</label>
                                         <InputText
@@ -224,7 +255,7 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-3 mb-3">
+                                <div className="col-md-3 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyRegion">{t("Auth.Register.Form.Company.Region")}</label>
                                         <InputText
@@ -243,7 +274,7 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-3 mb-3">
+                                <div className="col-md-3 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="CompanyProvince">{t("Auth.Register.Form.Company.Province")}</label>
                                         <InputText
@@ -269,7 +300,7 @@ const Register: React.FC = () => {
                                 </div>
                             </div>
                             <div className="row mb-3">
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="UserName">{t("Auth.Register.Form.User.Name")}</label>
                                         <InputText
@@ -292,7 +323,7 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="UserSurname">{t("Auth.Register.Form.User.Surname")}</label>
                                         <InputText
@@ -315,7 +346,7 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-12 mb-3">
+                                <div className="col-md-12 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="UserEmail">{t("Auth.Register.Form.User.Email")}</label>
                                         <InputText
@@ -324,7 +355,8 @@ const Register: React.FC = () => {
                                             ...register(
                                                 'UserEmail',
                                                 {
-                                                    required: t("Auth.Register.Form.User.Email") + " " + t("Auth.Register.Form.Required")
+                                                    required: t("Auth.Register.Form.User.Email") + " " + t("Auth.Register.Form.Required"),
+                                                    validate: (value) => value && validateEmail(value) || t("Auth.Register.Form.Company.Email") + " " + t("Auth.Register.Form.Invalid")
                                                 })
                                             }
                                             className={
@@ -338,16 +370,18 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="UserPassword">{t("Auth.Register.Form.User.Password")}</label>
                                         <InputText
                                             id="UserPassword"
+                                            type="password"
                                             {
                                             ...register(
                                                 'UserPassword',
                                                 {
-                                                    required: t("Auth.Register.Form.User.Password") + " " + t("Auth.Register.Form.Required")
+                                                    required: t("Auth.Register.Form.User.Password") + " " + t("Auth.Register.Form.Required"),
+                                                    validate: (value) => value && validatePassword(value) || t("Auth.Register.Form.User.Password") + " " + t("Auth.Register.Form.Invalid")
                                                 })
                                             }
                                             className={
@@ -361,16 +395,18 @@ const Register: React.FC = () => {
                                         </small>
                                     }
                                 </div>
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-4">
                                     <FloatLabel>
                                         <label htmlFor="UserPasswordRepeat">{t("Auth.Register.Form.User.PasswordRepeat")}</label>
                                         <InputText
                                             id="UserPasswordRepeat"
+                                            type="password"
                                             {
                                             ...register(
                                                 'UserPasswordRepeat',
                                                 {
-                                                    required: t("Auth.Register.Form.User.PasswordRepeat") + " " + t("Auth.Register.Form.Required")
+                                                    required: t("Auth.Register.Form.User.PasswordRepeat") + " " + t("Auth.Register.Form.Required"),
+                                                    validate: (value) => value && value === password || t("Auth.Register.Form.User.PasswordRepeat") + " " + t("Auth.Register.Form.Mismatch")
                                                 })
                                             }
                                             className={

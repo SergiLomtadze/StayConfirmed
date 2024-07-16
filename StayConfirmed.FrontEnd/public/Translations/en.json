@@ -23,13 +23,17 @@
       "Header": "StayConfirmed",
       "SubHeader": "Please use the form to sign-in StayConfirmed network",
       "Button": "Login",
-      "Link": "Forgot Password?"
+      "Link": "Forgot Password?",
+      "Register": "User not exits?"
     },
     "Register": {
       "Header": "Register",
       "Button": "Register",
+      "Link": "Return to Login",
       "Form": {
         "Required": "is required",
+        "Invalid": "is invalid",
+        "Mismatch": "mismatch",
         "Company": {
           "Header": "Company Informations",
           "Name": "Name",
