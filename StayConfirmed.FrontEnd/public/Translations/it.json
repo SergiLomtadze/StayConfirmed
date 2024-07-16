@@ -25,12 +25,39 @@
       "Button": "Accedere",
       "Link": "Password Dimenticata?"
     },
-    "ResetPassword": {
-      "Header": "StayConfirmed",
-      "SubHeader": "Compilare il form per richiedere il reset della password",
-      "SubHeaderSuccess": "Se l'utenza è esistente, verrà inviata una mail all'indirizzo indicato",
-      "Button": "Reset",
-      "Link": "Ritornare al Login"
+    "Register": {
+      "Header": "Registrazione",
+      "Button": "Procedi",
+      "Form": {
+        "Required": "è richiesto",
+        "Company": {
+          "Header": "Informazioni Azienda",
+          "Name": "Nome",
+          "VAT": "Partita IVA",
+          "Phone": "Telefono",
+          "Email": "Email",
+          "Address": "Indirizzo",
+          "City": "Città",
+          "ZIP": "CAP",
+          "Region": "Regione",
+          "Province": "Provincia"
+        },
+        "User": {
+          "Header": "Informazioni Utente",
+          "Name": "Nome",
+          "Surname": "Cognome",
+          "Email": "Email",
+          "Password": "Password",
+          "PasswordRepeat": "Conferma Password"
+        }
+      },
+      "ResetPassword": {
+        "Header": "StayConfirmed",
+        "SubHeader": "Compilare il form per richiedere il reset della password",
+        "SubHeaderSuccess": "Se l'utenza è esistente, verrà inviata una mail all'indirizzo indicato",
+        "Button": "Reset",
+        "Link": "Ritornare al Login"
+      }
     },
     "Username": "Nome utente",
     "Password": "Password",

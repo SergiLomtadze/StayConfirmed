@@ -1,24 +1,21 @@
-'use client';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { LayoutContext } from './context/layoutcontext';
 import { classNames, DomHandler } from 'primereact/utils';
 import { useEventListener, useMountEffect, useResizeListener, useUnmountEffect } from 'primereact/hooks';
 import { PrimeReactContext } from 'primereact/api';
-import AppConfig from './AppConfig';
 import AppSidebar from './AppSidebar';
 import AppTopbar from './AppTopbar';
 import AppBreadcrumb from './AppBreadCrumb';
-import AppFooter from './AppFooter';
-import type { AppTopbarRef, ChildContainerProps } from '@/types';
+import type { AppTopbarRef, ChildContainerProps } from './layout';
 
 const Layout = (props: ChildContainerProps) => {
     const { layoutConfig, layoutState, setLayoutState, setLayoutConfig, isSlim, isSlimPlus, isHorizontal, isDesktop, isSidebarActive } = useContext(LayoutContext);
     const { setRipple } = useContext(PrimeReactContext);
     const topbarRef = useRef<AppTopbarRef>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
+    const location = useLocation();
+    const [searchParams] = useSearchParams();
     let timeout: NodeJS.Timeout | null = null;
 
     const [bindMenuOutsideClickListener, unbindMenuOutsideClickListener] = useEventListener({
@@ -54,8 +51,7 @@ const Layout = (props: ChildContainerProps) => {
             menuHoverActive: false,
             resetMenu: (isSlim() || isSlimPlus() || isHorizontal()) && isDesktop()
         }));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSlim, isSlimPlus, isHorizontal, isDesktop]);
+    }, [isSlim, isSlimPlus, isHorizontal, isDesktop, setLayoutState]);
 
     const blockBodyScroll = () => {
         if (document.body.classList) {
@@ -72,6 +68,7 @@ const Layout = (props: ChildContainerProps) => {
             document.body.className = document.body.className.replace(new RegExp('(^|\\b)' + 'blocked-scroll'.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
         }
     };
+
     useMountEffect(() => {
         setRipple?.(layoutConfig.ripple);
     });
@@ -111,8 +108,7 @@ const Layout = (props: ChildContainerProps) => {
             }
         };
         onRouteChange();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pathname, searchParams]);
+    }, [layoutConfig.colorScheme, setLayoutConfig]);
 
     useEffect(() => {
         if (isSidebarActive()) {
@@ -129,16 +125,14 @@ const Layout = (props: ChildContainerProps) => {
             unbindDocumentResizeListener();
             unblockBodyScroll();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [layoutState.overlayMenuActive, layoutState.staticMenuMobileActive, layoutState.overlaySubmenuActive]);
+    }, [layoutState.overlayMenuActive, layoutState.staticMenuMobileActive, layoutState.overlaySubmenuActive, isSidebarActive, bindMenuOutsideClickListener, unbindMenuOutsideClickListener, bindDocumentResizeListener, unbindDocumentResizeListener]);
 
     useEffect(() => {
         const onRouteChange = () => {
             hideMenu();
         };
         onRouteChange();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pathname, searchParams]);
+    }, [location, searchParams, hideMenu]);
 
     useUnmountEffect(() => {
         unbindMenuOutsideClickListener();
@@ -173,13 +167,9 @@ const Layout = (props: ChildContainerProps) => {
                 </div>
                 <div className="layout-content-wrapper">
                     <div>
-                        <AppBreadcrumb></AppBreadcrumb>
                         <div className="layout-content">{props.children}</div>
                     </div>
-                    <AppFooter></AppFooter>
                 </div>
-                <AppConfig />
-                <div className="layout-mask"></div>
             </div>
         </React.Fragment>
     );

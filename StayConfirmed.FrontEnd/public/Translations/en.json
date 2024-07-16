@@ -25,6 +25,33 @@
       "Button": "Login",
       "Link": "Forgot Password?"
     },
+    "Register": {
+      "Header": "Register",
+      "Button": "Register",
+      "Form": {
+        "Required": "is required",
+        "Company": {
+          "Header": "Company Informations",
+          "Name": "Name",
+          "VAT": "VAT",
+          "Phone": "Phone",
+          "Email": "Email",
+          "Address": "Address",
+          "City": "City",
+          "ZIP": "ZIP",
+          "Region": "Region",
+          "Province": "Province"
+        },
+        "User": {
+          "Header": "User Informations",
+          "Name": "Name",
+          "Surname": "Surname",
+          "Email": "Email",
+          "Password": "Password",
+          "PasswordRepeat": "Confirm Password"
+        }
+      }
+    },
     "ResetPassword": {
       "Header": "StayConfirmed",
       "SubHeader": "Please use the form to request password reset",

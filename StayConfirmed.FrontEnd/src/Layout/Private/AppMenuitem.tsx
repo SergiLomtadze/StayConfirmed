@@ -1,22 +1,23 @@
-'use client';
 import { Ripple } from 'primereact/ripple';
 import { classNames } from 'primereact/utils';
-import { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { LayoutContext } from './context/layoutcontext';
 import { MenuContext } from './context/menucontext';
 import type { AppMenuItemProps } from '@/types';
 import { useSubmenuOverlayPosition } from './hooks/useSubmenuOverlayPosition';
+import { useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { Icon } from '../../Common/Icons/Icon';
 
 const AppMenuitem = (props: AppMenuItemProps) => {
     const { activeMenu, setActiveMenu } = useContext(MenuContext);
     const { isSlim, isSlimPlus, isHorizontal, isDesktop, setLayoutState, layoutState, layoutConfig } = useContext(LayoutContext);
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
+    const location = useLocation();
+    const navigate = useNavigate();
     const submenuRef = useRef<HTMLUListElement>(null);
     const menuitemRef = useRef<HTMLLIElement>(null);
     const item = props.item;
     const key = props.parentKey ? props.parentKey + '-' + props.index : String(props.index);
-    const isActiveRoute = item!.to && pathname === item!.to;
+    const isActiveRoute = item!.to && location.pathname === item!.to;
     const active = activeMenu === key || !!(activeMenu && activeMenu.startsWith(key + '-'));
 
     useSubmenuOverlayPosition({
@@ -40,16 +41,16 @@ const AppMenuitem = (props: AppMenuItemProps) => {
         if (!(isSlim() || isSlimPlus() || isHorizontal()) && isActiveRoute) {
             setActiveMenu(key);
         }
-        const url = pathname + searchParams.toString();
+        const url = location.pathname + location.search;
         const onRouteChange = () => {
             if (!(isSlim() || isHorizontal()) && item!.to && item!.to === url) {
                 setActiveMenu(key);
             }
         };
         onRouteChange();
-    }, [pathname, searchParams, layoutConfig]);
+    }, [location.pathname, location.search, layoutConfig]);
 
-    const itemClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const itemClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         //avoid processing disabled items
         if (item!.disabled) {
             event.preventDefault();
@@ -149,9 +150,13 @@ const AppMenuitem = (props: AppMenuItemProps) => {
                         tabIndex={0}
                         onMouseEnter={onMouseEnter}
                     >
-                        <i className={classNames('layout-menuitem-icon', item?.icon)}></i>
+                        <Icon Name={item.icon ? item.icon : "MenuItemNoIcon"} />
                         <span className="layout-menuitem-text">{item?.label}</span>
-                        {item?.items && <i className="pi pi-fw pi-angle-down layout-submenu-toggler"></i>}
+                        {
+                            item?.items
+                            &&
+                            <Icon Name="ChevronDown" Classes=" layout-submenu-toggler" />
+                        }
                         <Ripple />
                     </a>
                 </>
@@ -159,22 +164,23 @@ const AppMenuitem = (props: AppMenuItemProps) => {
 
             {item?.to && !item?.items && item?.visible !== false ? (
                 <>
-                    <Link
-                        href={item?.to}
+                    <NavLink
+                        to={item?.to}
                         replace={item?.replaceUrl}
                         onClick={(e) => itemClick(e)}
-                        className={classNames(item?.class, 'p-ripple ', {
-                            'active-route': isActiveRoute
-                        })}
+                        className={({ isActive }) =>
+                            classNames(item?.class, 'p-ripple', {
+                                'active-route': isActive
+                            })
+                        }
                         tabIndex={0}
                         onMouseEnter={onMouseEnter}
                     >
-                        <i className={classNames('layout-menuitem-icon', item?.icon)}></i>
+                        <Icon Name={item.icon ? item.icon : "MenuItemNoIcon"} />
                         <span className="layout-menuitem-text">{item?.label}</span>
-                        {/* {badge} */}
                         {item?.items && <i className="pi pi-fw pi-angle-down layout-submenu-toggler"></i>}
                         <Ripple />
-                    </Link>
+                    </NavLink>
                 </>
             ) : null}
             {subMenu}

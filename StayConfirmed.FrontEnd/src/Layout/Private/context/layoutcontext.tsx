@@ -11,10 +11,10 @@ export const LayoutProvider: React.FC<ChildContainerProps> = (props) => {
         inputStyle: 'outlined',
         menuMode: 'static',
         colorScheme: 'light',
-        componentTheme: 'purple',
+        componentTheme: 'green',
         scale: 14,
         menuTheme: 'light',
-        topbarTheme: 'purple',
+        topbarTheme: 'green',
         menuProfilePosition: 'start',
         desktopMenuActive: true,
         mobileMenuActive: false,
@@ -113,16 +113,11 @@ export const LayoutProvider: React.FC<ChildContainerProps> = (props) => {
         <LayoutContext.Provider value={value}>
             <HelmetProvider>
                 <Helmet>
-                    <title>PrimeReact - Avalon</title>
                     <meta charSet="UTF-8" />
-                    <meta name="description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
                     <meta name="robots" content="index, follow" />
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <meta property="og:type" content="website"></meta>
-                    <meta property="og:title" content="Avalon by PrimeReact for Next.js"></meta>
-                    <meta property="og:url" content="https://apollo.primereact.org/"></meta>
-                    <meta property="og:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
-                    <meta property="og:image" content="https://www.primefaces.org/static/social/avalon-react.png"></meta>
+                    <meta property="og:title" content="StayConfirmed"></meta>
                     <meta property="og:ttl" content="604800"></meta>
                     <link rel="icon" href={`/favicon.ico`} type="image/x-icon"></link>
                 </Helmet>

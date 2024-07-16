@@ -1,8 +1,26 @@
 {
-    "User": {
-        "value": "person"
-    },
-    "Error": {
-        "value": "warning"
-    }
+  "User": {
+    "value": "person"
+  },
+  "Error": {
+    "value": "warning"
+  },
+  "Menu": {
+    "value": "menu"
+  },
+  "Notifications": {
+    "value": "notifications"
+  },
+  "ChevronUp": {
+    "value": "keyboard_arrow_up"
+  },
+  "ChevronDown": {
+    "value": "keyboard_arrow_down"
+  },
+  "MenuItemNoIcon": {
+    "value": "check_indeterminate_small"
+  },
+  "Logout": {
+    "value": "logout"
+  }
 }
