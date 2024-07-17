@@ -875,11 +875,6 @@ namespace StayConfirmed.Persistence.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("BusinessName")
-                        .HasMaxLength(300)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(300)");
-
                     b.Property<string>("City")
                         .HasMaxLength(100)
                         .IsUnicode(true)
@@ -888,17 +883,37 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(200)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Province")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("StakeholderType")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("Updated")
@@ -908,6 +923,11 @@ namespace StayConfirmed.Persistence.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Zip")
+                        .HasMaxLength(30)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("IdStakeholder");
 
@@ -998,6 +1018,11 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -1022,6 +1047,11 @@ namespace StayConfirmed.Persistence.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");

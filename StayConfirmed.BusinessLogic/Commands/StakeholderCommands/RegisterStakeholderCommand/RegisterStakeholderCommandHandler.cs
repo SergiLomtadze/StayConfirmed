@@ -25,7 +25,7 @@ public class RegisterStakeholderCommandHandler(IApplicationDbContext context)
 
         context.Stakeholders.Add(new DataAccess.Entities.Stakeholder
         {
-            BusinessName = command.StakeholderName,
+            Name = command.StakeholderName,
             Address = command.Address,
             City = command.City,
             Vat = command.Vat,
