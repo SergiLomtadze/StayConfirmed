@@ -1,7 +1,14 @@
-﻿namespace StayConfirmed.DataAccess.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Brand : BaseEntity
+namespace StayConfirmed.DataAccess.Entities;
+
+public class Brand
 {
+    [Key]
+    public int IdBrand { get; set; }
+    public DateTime Created { get; set; } = DateTime.UtcNow;
+    public DateTime? Updated { get; set; }
+    public bool IsActive { get; set; }
     public string Name { get; set; }
     public string Logo { get; set; }
     public ICollection<string> Emails { get; set; } = [];

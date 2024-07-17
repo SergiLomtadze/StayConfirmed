@@ -1,9 +1,15 @@
 ﻿using StayConfirmed.DataAccess.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace StayConfirmed.DataAccess.Entities;
 
-public class Reservation : BaseEntity
+public class Reservation
 {
+    [Key]
+    public int IdReservation { get; set; }
+    public DateTime Created { get; set; } = DateTime.UtcNow;
+    public DateTime? Updated { get; set; }
+    public bool IsActive { get; set; }
     public int IdUser { get; set; }
     public int IdBrand { get; set; }
     public string CustomerReservationCode { get; set; }

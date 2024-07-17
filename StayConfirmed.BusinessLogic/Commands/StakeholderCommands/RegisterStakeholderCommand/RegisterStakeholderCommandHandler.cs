@@ -14,7 +14,7 @@ public class RegisterStakeholderCommandHandler(IApplicationDbContext context)
             .Where(x => x.Vat.Equals(command.Vat))
             .FirstOrDefaultAsync();
 
-        if (existingStakeholder == null)
+        if (existingStakeholder != null)
         {
             return new RegisterStakeholderCommandResponse
             {

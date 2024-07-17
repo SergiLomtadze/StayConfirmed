@@ -1,10 +1,16 @@
 ﻿using StayConfirmed.DataAccess.Enums;
 using StayConfirmed.DataAccess.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace StayConfirmed.DataAccess.Entities;
 
-public class InputFromCustomer : BaseEntity
+public class InputFromCustomer
 {
+    [Key]
+    public int IdInputFromCustomer { get; set; }
+    public DateTime Created { get; set; } = DateTime.UtcNow;
+    public DateTime? Updated { get; set; }
+    public bool IsActive { get; set; }
     public int IdBrand { get; set; }
     public string CustomerReservationCode { get; set; }
     public string ProviderReservationCode { get; set; }
