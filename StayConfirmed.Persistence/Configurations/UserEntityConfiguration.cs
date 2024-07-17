@@ -8,6 +8,12 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.Property(s => s.Name)
+             .HasMaxLength(100)
+             .IsUnicode(true);
+        builder.Property(s => s.Surname)
+             .HasMaxLength(100)
+             .IsUnicode(true);
         builder.Property(u => u.Secret)
             .HasMaxLength(20)
             .IsUnicode();

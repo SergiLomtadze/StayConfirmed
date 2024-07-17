@@ -42,7 +42,7 @@ namespace StayConfirmed.WebApi.Controllers
             {
                 UserName = register.UserEmail,
                 Email = register.UserEmail,
-                IdStakeholder = stakeholderResult.Stakeholder.Id,
+                IdStakeholder = stakeholderResult.Stakeholder.IdStakeholder,
             };
 
             var result = await userManager.CreateAsync(user, register.Password);
