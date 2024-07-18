@@ -25,7 +25,7 @@ namespace StayConfirmed.WebApi.Controllers.User
             }
 
 
-            var result = await commandInvoker.Invoke(new GetUserQueryRequest 
+            var result = await commandInvoker.Invoke(new GetUserQueryRequest
             {
                 Email = email
             });
@@ -51,12 +51,12 @@ namespace StayConfirmed.WebApi.Controllers.User
             }
         }
 
-        [HttpPost("ActivateUser")]
-        public async Task<ActionResult<string>> ActivateUser(string token)
+        [HttpGet("ActivateUser/{Token}")]
+        public async Task<ActionResult<string>> ActivateUser(string Token)
         {
             var result = await commandInvoker.Invoke(new ActivateUserCommandRequest
             {
-                Token = token
+                Token = Token
             });
 
             if (result.Status)
