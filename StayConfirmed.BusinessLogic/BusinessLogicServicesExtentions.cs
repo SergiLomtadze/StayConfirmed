@@ -2,6 +2,7 @@
 using StayConfirmed.BusinessLogic.CommandExecutor;
 using StayConfirmed.BusinessLogic.Commands.CsvCommands.UploadFileCommand;
 using StayConfirmed.BusinessLogic.Commands.RegistrationCommands.RegisterCommand;
+using StayConfirmed.BusinessLogic.Commands.StakeholderCommands.DeleteStakeholderCommand;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.ActivateUserCommands;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.ForgotPassowrdCommand;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.ResetPasswordCommand;
@@ -26,5 +27,6 @@ public static class BusinessLogicServicesExtentions
         services.AddScoped<ICommandHandler<ForgotPasswordCommandRequest, ForgotPasswordCommandResponse>, ForgotPasswordCommandHandler>();
         services.AddScoped<ICommandHandler<ResetPasswordCommandRequest, ResetPasswordCommandResponse>, ResetPasswordCommandHandler>();
         services.AddScoped<ICommandHandler<RegisterStakeholderCommandRequest, RegisterStakeholderCommandResponse>, RegisterStakeholderCommandHandler>();
+        services.AddScoped<ICommandHandler<DeleteStakeholderCommandRequest, DeleteStakeholderCommandResponse>, DeleteStakeholderCommandHandler>();
     }
 }
