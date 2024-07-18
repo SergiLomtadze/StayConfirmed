@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StayConfirmed.BusinessLogic.CommandExecutor;
 using StayConfirmed.WebApi.Dto.Registration;
 using StayConfirmed.BusinessLogic.Commands.RegistrationCommands.RegisterCommand;
+using StayConfirmed.BusinessLogic.Commands.StakeholderCommands.DeleteStakeholderCommand;
 
 namespace StayConfirmed.WebApi.Controllers
 {
@@ -55,6 +55,14 @@ namespace StayConfirmed.WebApi.Controllers
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
+                var stakeholderDeleteResult = await commandInvoker.Invoke(new DeleteStakeholderCommandRequest
+                {
+                    Vat = register.Vat,
+                });
+                if (!stakeholderDeleteResult.Status)
+                {
+                    ModelState.AddModelError(string.Empty, stakeholderDeleteResult.Message);
+                }
             }
 
             return BadRequest(ModelState);
