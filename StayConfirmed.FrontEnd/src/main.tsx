@@ -14,7 +14,7 @@ import { Error } from './Layout/Error';
 import { LayoutProvider } from './Layout/Private/context/layoutcontext';
 
 import { Login } from './Pages/Authentication/Login';
-import { ResetPassword } from './Pages/Authentication/ResetPassword';
+import ResetPassword from './Pages/Authentication/ResetPassword';
 import Activate from './Pages/Authentication/Activate';
 import { RequestUserActivation } from './Pages/Authentication/RequestUserActivation';
 import TEST from './Pages/TEST/TEST';

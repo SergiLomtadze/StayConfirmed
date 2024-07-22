@@ -24,4 +24,7 @@ export const Paths: { [key: string]: PathValue } = {
     Logo: {
         value: "images/logo-white.png"
     },
+    Icon: {
+        value: "images/icon.png"
+    }
 };

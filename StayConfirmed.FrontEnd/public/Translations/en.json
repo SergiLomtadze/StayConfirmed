@@ -24,7 +24,7 @@
       "SubHeader": "Please use the form to sign-in StayConfirmed network",
       "Button": "Login",
       "Link": "Forgot Password?",
-      "Register": "User not exits?"
+      "Register": "User does not exist?"
     },
     "Register": {
       "Header": "Register",
