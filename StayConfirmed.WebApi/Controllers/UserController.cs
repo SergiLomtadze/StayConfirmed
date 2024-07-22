@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using StayConfirmed.BusinessLogic.CommandExecutor;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.ActivateUserCommands;

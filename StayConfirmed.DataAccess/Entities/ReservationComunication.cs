@@ -1,7 +1,14 @@
-﻿namespace StayConfirmed.DataAccess.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class ReservationComunication : BaseEntity
+namespace StayConfirmed.DataAccess.Entities;
+
+public class ReservationComunication
 {
+    [Key]
+    public int IdReservationComunication { get; set; }
+    public DateTime Created { get; set; } = DateTime.UtcNow;
+    public DateTime? Updated { get; set; }
+    public bool IsActive { get; set; }
     public int IdUser { get; set; }
     public int IdReservation { get; set; }
     public DateTime? DateSendEmail { get; set; }

@@ -1,7 +1,14 @@
-﻿namespace StayConfirmed.DataAccess.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Profile : BaseEntity
+namespace StayConfirmed.DataAccess.Entities;
+
+public class Profile
 {
+    [Key]
+    public int IdProfile { get; set; }
+    public DateTime Created { get; set; } = DateTime.UtcNow;
+    public DateTime? Updated { get; set; }
+    public bool IsActive { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public ICollection<int> IdRoles { get; set; } = [];

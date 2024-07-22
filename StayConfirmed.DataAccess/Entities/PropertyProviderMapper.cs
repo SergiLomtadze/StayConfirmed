@@ -1,7 +1,14 @@
-﻿namespace StayConfirmed.DataAccess.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class PropertyProviderMapper : BaseEntity
+namespace StayConfirmed.DataAccess.Entities;
+
+public class PropertyProviderMapper
 {
+    [Key]
+    public int IdPropertyProviderMapper { get; set; }
+    public DateTime Created { get; set; } = DateTime.UtcNow;
+    public DateTime? Updated { get; set; }
+    public bool IsActive { get; set; }
     public int IdProperty { get; set; }
     public int IdStakeholder { get; set; }
 }

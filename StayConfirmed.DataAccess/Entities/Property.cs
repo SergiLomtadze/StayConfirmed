@@ -1,7 +1,14 @@
-﻿namespace StayConfirmed.DataAccess.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Property : BaseEntity
+namespace StayConfirmed.DataAccess.Entities;
+
+public class Property
 {
+    [Key]
+    public int IdProperty { get; set; }
+    public DateTime Created { get; set; } = DateTime.UtcNow;
+    public DateTime? Updated { get; set; }
+    public bool IsActive { get; set; }
     public string Name { get; set; }
     public string Address { get; set; }
     public string City { get; set; }

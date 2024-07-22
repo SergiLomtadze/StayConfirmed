@@ -157,11 +157,11 @@ namespace StayConfirmed.Persistence.Migrations
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Brand", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdBrand")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBrand"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -192,18 +192,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdBrand");
 
                     b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.CheckRule", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdCheckRule")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCheckRule"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -235,18 +235,18 @@ namespace StayConfirmed.Persistence.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdCheckRule");
 
                     b.ToTable("CheckRules");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Currency", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdCurrency")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCurrency"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -267,18 +267,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdCurrency");
 
                     b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.InputFromCustomer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdInputFromCustomer")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdInputFromCustomer"));
 
                     b.Property<int>("Action")
                         .HasColumnType("int");
@@ -368,18 +368,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdInputFromCustomer");
 
                     b.ToTable("InputFromCustomers");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.MapProvider", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdMapProvider")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMapProvider"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -400,18 +400,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdMapProvider");
 
                     b.ToTable("MapProviders");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.PricingModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdPricingModel")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPricingModel"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -438,18 +438,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdPricingModel");
 
                     b.ToTable("PricingModels");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Profile", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdProfile")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProfile"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -475,18 +475,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdProfile");
 
                     b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Property", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdProperty")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProperty"));
 
                     b.Property<string>("Address")
                         .HasMaxLength(300)
@@ -533,18 +533,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<int>("Zip")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdProperty");
 
                     b.ToTable("PropertyInfos");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.PropertyContact", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdPropertyContact")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPropertyContact"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -575,18 +575,18 @@ namespace StayConfirmed.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdPropertyContact");
 
                     b.ToTable("PropertyContacts");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.PropertyProviderMapper", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdPropertyProviderMapper")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPropertyProviderMapper"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -603,18 +603,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdPropertyProviderMapper");
 
                     b.ToTable("PropertyProviderMappers");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Reservation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdReservation")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdReservation"));
 
                     b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
@@ -714,18 +714,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdReservation");
 
                     b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.ReservationComunication", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdReservationComunication")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdReservationComunication"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -755,18 +755,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdReservationComunication");
 
                     b.ToTable("ReservationComunications");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.ReservationCustomerStatus", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdReservationCustomerStatus")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdReservationCustomerStatus"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -795,18 +795,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdReservationCustomerStatus");
 
                     b.ToTable("ReservationCustomerStatuses");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.ReservationOperationalStatus", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdReservationOperationalStatus")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdReservationOperationalStatus"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -823,18 +823,18 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdReservationOperationalStatus");
 
                     b.ToTable("ReservationOperationalStatuses");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Role", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdRole")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRole"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -857,25 +857,20 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdRole");
 
                     b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Stakeholder", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdStakeholder")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdStakeholder"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(300)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("BusinessName")
                         .HasMaxLength(300)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(300)");
@@ -888,17 +883,37 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(200)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Province")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("StakeholderType")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("Updated")
@@ -909,18 +924,23 @@ namespace StayConfirmed.Persistence.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Zip")
+                        .HasMaxLength(30)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("IdStakeholder");
 
                     b.ToTable("Stakeholders");
                 });
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Transaction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdTransaction")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTransaction"));
 
                     b.Property<decimal>("Amount")
                         .ValueGeneratedOnAdd()
@@ -954,7 +974,7 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdTransaction");
 
                     b.ToTable("Transactions");
                 });
@@ -970,6 +990,9 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -994,6 +1017,11 @@ namespace StayConfirmed.Persistence.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -1020,8 +1048,16 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Surname")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -1042,11 +1078,11 @@ namespace StayConfirmed.Persistence.Migrations
 
             modelBuilder.Entity("StayConfirmed.DataAccess.Entities.Wallet", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdWallet")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdWallet"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -1069,7 +1105,7 @@ namespace StayConfirmed.Persistence.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdWallet");
 
                     b.ToTable("Wallets");
                 });

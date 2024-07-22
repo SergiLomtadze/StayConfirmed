@@ -9,21 +9,35 @@ public class StakeholderEntityConfiguration : IEntityTypeConfiguration<Stakehold
 {
     public void Configure(EntityTypeBuilder<Stakeholder> builder)
     {
-        builder.Property(s => s.BusinessName)
-               .HasMaxLength(300)
+        builder.Property(s => s.Name)
+               .HasMaxLength(200)
                .IsUnicode(true);
+        builder.Property(s => s.Vat)
+                .HasMaxLength(100)
+                .IsUnicode(true);
+        builder.Property(s => s.Email)
+                .HasMaxLength(100)
+                .IsUnicode(true);
+        builder.Property(s => s.Phone)
+                .HasMaxLength(100)
+                .IsUnicode(true);
         builder.Property(s => s.Address)
                .HasMaxLength(300)
                .IsUnicode(true);
         builder.Property(s => s.City)
                .HasMaxLength(100)
                .IsUnicode(true);
-        builder.Property(s => s.State)
+        builder.Property(s => s.Zip)
+               .HasMaxLength(30)
+               .IsUnicode(true);
+        builder.Property(s => s.Region)
                .HasMaxLength(100)
                .IsUnicode(true);
-        builder.Property(s => s.Vat)
+        builder.Property(s => s.Province)
                .HasMaxLength(100)
                .IsUnicode(true);
+
+
         builder.Property(s => s.StakeholderType)
                .HasMaxLength(100)
                .HasEnumToStringConversion();
