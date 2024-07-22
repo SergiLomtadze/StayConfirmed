@@ -13,6 +13,7 @@
     <TypeScriptConfiguration Remove="public\images\**" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\Helpers\Authentication\" />
     <Folder Include="src\Layout\Public\" />
   </ItemGroup>
 </Project>

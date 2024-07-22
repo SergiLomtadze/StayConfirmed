@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.UseCors("AllowAll");
-app.MapIdentityApi<User>();
+app.MapGroup("/api").MapIdentityApi<User>();
 
 app.UseSwagger();
 app.UseSwaggerUI();

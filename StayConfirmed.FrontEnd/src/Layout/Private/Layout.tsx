@@ -16,7 +16,56 @@ const Layout = (props: ChildContainerProps) => {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const location = useLocation();
     const [searchParams] = useSearchParams();
-    let timeout: NodeJS.Timeout | null = null;
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const hideMenu = useCallback(() => {
+        setLayoutState((prevLayoutState) => ({
+            ...prevLayoutState,
+            overlayMenuActive: false,
+            overlaySubmenuActive: false,
+            staticMenuMobileActive: false,
+            menuHoverActive: false,
+            resetMenu: (isSlim() || isSlimPlus() || isHorizontal()) && isDesktop()
+        }));
+    }, [isSlim, isSlimPlus, isHorizontal, isDesktop, setLayoutState]);
+
+    const blockBodyScroll = useCallback(() => {
+        document.body.classList.add('blocked-scroll');
+    }, []);
+
+    const unblockBodyScroll = useCallback(() => {
+        document.body.classList.remove('blocked-scroll');
+    }, []);
+
+    useMountEffect(() => {
+        setRipple?.(layoutConfig.ripple);
+    });
+
+    const onMouseEnter = useCallback(() => {
+        if (!layoutState.anchored) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+            setLayoutState((prevLayoutState) => ({
+                ...prevLayoutState,
+                sidebarActive: true
+            }));
+        }
+    }, [layoutState.anchored, setLayoutState]);
+
+    const onMouseLeave = useCallback(() => {
+        if (!layoutState.anchored) {
+            if (!timeoutRef.current) {
+                timeoutRef.current = setTimeout(() => {
+                    setLayoutState((prevLayoutState) => ({
+                        ...prevLayoutState,
+                        sidebarActive: false
+                    }));
+                }, 300);
+            }
+        }
+    }, [layoutState.anchored, setLayoutState]);
 
     const [bindMenuOutsideClickListener, unbindMenuOutsideClickListener] = useEventListener({
         type: 'click',
@@ -42,74 +91,6 @@ const Layout = (props: ChildContainerProps) => {
         }
     });
 
-    const hideMenu = useCallback(() => {
-        setLayoutState((prevLayoutState) => ({
-            ...prevLayoutState,
-            overlayMenuActive: false,
-            overlaySubmenuActive: false,
-            staticMenuMobileActive: false,
-            menuHoverActive: false,
-            resetMenu: (isSlim() || isSlimPlus() || isHorizontal()) && isDesktop()
-        }));
-    }, [isSlim, isSlimPlus, isHorizontal, isDesktop, setLayoutState]);
-
-    const blockBodyScroll = () => {
-        if (document.body.classList) {
-            document.body.classList.add('blocked-scroll');
-        } else {
-            document.body.className += ' blocked-scroll';
-        }
-    };
-
-    const unblockBodyScroll = () => {
-        if (document.body.classList) {
-            document.body.classList.remove('blocked-scroll');
-        } else {
-            document.body.className = document.body.className.replace(new RegExp('(^|\\b)' + 'blocked-scroll'.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-        }
-    };
-
-    useMountEffect(() => {
-        setRipple?.(layoutConfig.ripple);
-    });
-
-    const onMouseEnter = () => {
-        if (!layoutState.anchored) {
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
-            }
-            setLayoutState((prevLayoutState) => ({
-                ...prevLayoutState,
-                sidebarActive: true
-            }));
-        }
-    };
-
-    const onMouseLeave = () => {
-        if (!layoutState.anchored) {
-            if (!timeout) {
-                timeout = setTimeout(
-                    () =>
-                        setLayoutState((prevLayoutState) => ({
-                            ...prevLayoutState,
-                            sidebarActive: false
-                        })),
-                    300
-                );
-            }
-        }
-    };
-
-    useEffect(() => {
-        const onRouteChange = () => {
-            if (layoutConfig.colorScheme === 'dark') {
-                setLayoutConfig((prevState) => ({ ...prevState, menuTheme: 'dark' }));
-            }
-        };
-        onRouteChange();
-    }, [layoutConfig.colorScheme, setLayoutConfig]);
-
     useEffect(() => {
         if (isSidebarActive()) {
             bindMenuOutsideClickListener();
@@ -125,17 +106,17 @@ const Layout = (props: ChildContainerProps) => {
             unbindDocumentResizeListener();
             unblockBodyScroll();
         };
-    }, [layoutState.overlayMenuActive, layoutState.staticMenuMobileActive, layoutState.overlaySubmenuActive, isSidebarActive, bindMenuOutsideClickListener, unbindMenuOutsideClickListener, bindDocumentResizeListener, unbindDocumentResizeListener]);
+    }, [isSidebarActive, layoutState.staticMenuMobileActive, isSlim, isSlimPlus, isHorizontal, bindMenuOutsideClickListener, unbindMenuOutsideClickListener, bindDocumentResizeListener, unbindDocumentResizeListener, blockBodyScroll, unblockBodyScroll]);
 
     useEffect(() => {
-        const onRouteChange = () => {
-            hideMenu();
-        };
-        onRouteChange();
+        hideMenu();
     }, [location, searchParams, hideMenu]);
 
     useUnmountEffect(() => {
         unbindMenuOutsideClickListener();
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
     });
 
     const containerClassName = classNames('layout-topbar-' + layoutConfig.topbarTheme, 'layout-menu-' + layoutConfig.menuTheme, 'layout-menu-profile-' + layoutConfig.menuProfilePosition, {

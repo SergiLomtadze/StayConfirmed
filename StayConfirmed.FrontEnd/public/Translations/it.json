@@ -24,12 +24,20 @@
       "SubHeader": "Utilizzare il form per accedere alla rete StayConfirmed",
       "Button": "Accedere",
       "Link": "Password Dimenticata?",
-      "Register": "Utente non esistente?"
+      "Register": "Utente non esistente?",
+      "Form": {
+        "Required": "è richiesto",
+        "User": {
+          "Username": "Email",
+          "Password": "Password"
+        }
+      }
     },
     "Register": {
       "Header": "Registrazione",
       "Button": "Procedi",
       "Link": "Ritorna al Login",
+      "Success": "Registrazione completata con successo, fai click sul link qui sotto per tornare al login",
       "Form": {
         "Required": "è richiesto",
         "Invalid": "non è valido",
@@ -66,5 +74,8 @@
     "Username": "Nome utente",
     "Password": "Password",
     "Email": "Email"
+  },
+  "Errors": {
+    "0" : ""
   }
 }

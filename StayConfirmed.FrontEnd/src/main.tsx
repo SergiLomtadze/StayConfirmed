@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-
-import ProtectedRoute from './Helpers/AuthHelper';
 import { loadConfig } from './Helpers/ConfigHelper';
 import { Paths } from './Common/Paths';
 import { i18nPromise } from './Common/Translations';
@@ -19,6 +17,8 @@ import Activate from './Pages/Authentication/Activate';
 import { RequestUserActivation } from './Pages/Authentication/RequestUserActivation';
 import TEST from './Pages/TEST/TEST';
 import Register from './Pages/Authentication/Register';
+import { ToastHelper } from './Helpers/ToastHelper'; // Import ToastProvider
+import { AuthProvider } from './Helpers/Authentication/AuthContext';
 
 const router = createBrowserRouter([
     {
@@ -38,32 +38,27 @@ const router = createBrowserRouter([
         element: <PrivateLayout><Outlet /></PrivateLayout>,
         errorElement: <Error />,
         children: [
-            {
-                path: 'test',
-                element: <ProtectedRoute element={<TEST />} />,
-            },
+            { path: Paths['Home'].value, element: <TEST /> }
         ],
     },
 ]);
 
 const renderApp = async () => {
     try {
-        await loadConfig(); // Ensure configuration is loaded
-        await i18nPromise; // Ensure i18n is initialized
-
-        const isAuthenticated = true; // Replace this with your actual authentication logic
+        await loadConfig();
+        await i18nPromise;
 
         ReactDOM.createRoot(document.getElementById('root')!).render(
             <React.StrictMode>
-                {isAuthenticated ? (
+                <AuthProvider>
                     <PrimeReactProvider>
                         <LayoutProvider>
-                            <RouterProvider router={router} />
+                            <ToastHelper>
+                                <RouterProvider router={router} />
+                            </ToastHelper>
                         </LayoutProvider>
                     </PrimeReactProvider>
-                ) : (
-                    <RouterProvider router={router} />
-                )}
+                </AuthProvider>
             </React.StrictMode>
         );
     } catch (error) {

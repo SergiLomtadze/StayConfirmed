@@ -24,12 +24,20 @@
       "SubHeader": "Please use the form to sign-in StayConfirmed network",
       "Button": "Login",
       "Link": "Forgot Password?",
-      "Register": "User does not exist?"
+      "Register": "User does not exist?",
+      "Form": {
+        "Required": "is required",
+        "User": {
+          "Username": "Email",
+          "Password": "Password"
+        }
+      }
     },
     "Register": {
       "Header": "Register",
       "Button": "Register",
       "Link": "Return to Login",
+      "Success": "Registration completed with success, click on below link to go to login",
       "Form": {
         "Required": "is required",
         "Invalid": "is invalid",

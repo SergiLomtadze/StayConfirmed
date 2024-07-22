@@ -4,6 +4,7 @@ import { Tooltip } from 'primereact/tooltip';
 import { LayoutContext } from './context/layoutcontext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Icon } from '../../Common/Icons/Icon';
+import AuthService from '../../Helpers/Authentication/AuthService';
 
 const AppMenuProfile = () => {
     const { layoutState, layoutConfig, isSlim, isHorizontal, onMenuProfileToggle } = useContext(LayoutContext);
@@ -63,7 +64,7 @@ const AppMenuProfile = () => {
                     {layoutState.menuProfileActive && (
                         <>
                             <li>
-                                <button className="p-link" onClick={() => navigate('/auth/login2')}>
+                                <button className="p-link" onClick={() => AuthService.logout}>
                                     <Icon Name="Logout" Classes="pe-5"/>
                                     <span className={hiddenClassName}>Logout</span>
                                 </button>

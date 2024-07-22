@@ -18,6 +18,9 @@ export const Paths: { [key: string]: PathValue } = {
     ActivateUserRequest: {
         value: "/auth/activate-user-request"
     },
+    Home: {
+        value: "/"
+    },
     LogoFull: {
         value: "images/logo-white.png"
     },
