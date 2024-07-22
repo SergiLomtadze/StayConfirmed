@@ -24,6 +24,7 @@ public class Reservation
     public string PropertyName { get; set; }
     public string PropertyAddress { get; set; }
     public string PropertyCounty { get; set; }
+    public string IsoCounty { get; set; }
     public string PropertyEmail { get; set; }
     public string CustomerCodeForProperty { get; set; }
     public string ProviderCodeForProperty { get; set; }

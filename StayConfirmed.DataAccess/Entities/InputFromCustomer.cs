@@ -24,6 +24,7 @@ public class InputFromCustomer
     public string PropertyName { get; set; }
     public string PropertyAddress { get; set; }
     public string PropertyCounty { get; set; }
+    public string IsoCounty { get; set; }
     public string PropertyEmail { get; set; }
     public string CustomerCodeForProperty { get; set; }
     public string ProviderCodeForProperty { get; set; }
@@ -33,7 +34,7 @@ public class InputFromCustomer
     public int Priority { get; set; }
     public string ContactEmail { get; set; }
     public ActionType Action { get; set; }
-
+    public int TotalPax { get; set; }
     public void AddPax(Pax pax)
     {
         if (pax is null)
@@ -43,12 +44,10 @@ public class InputFromCustomer
 
         Paxes.Add(pax);
     }
-
     public void RemovePax(Pax pax)
     {
         Paxes.Remove(pax);
     }
-
     public void RemovePaxes()
     {
         Paxes.Clear();

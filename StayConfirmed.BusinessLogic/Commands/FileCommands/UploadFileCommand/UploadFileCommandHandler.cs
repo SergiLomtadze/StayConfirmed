@@ -1,5 +1,6 @@
 ﻿using ExcelDataReader;
 using StayConfirmed.BusinessLogic.CommandExecutor;
+using StayConfirmed.DataAccess.Entities;
 using System.Data;
 using System.Text;
 
@@ -13,6 +14,7 @@ public class UploadFileCommandHandler
         try
         {
             var people = new List<Person>();
+            var inputs = new List<InputFromCustomer>();
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -48,6 +50,11 @@ public class UploadFileCommandHandler
                         FirstName = row[0].ToString(),
                         LastName = row[1].ToString(),
                         Age = age
+                    };
+
+                    var input = new InputFromCustomer
+                    {
+                       
                     };
                     people.Add(person);
                 }
