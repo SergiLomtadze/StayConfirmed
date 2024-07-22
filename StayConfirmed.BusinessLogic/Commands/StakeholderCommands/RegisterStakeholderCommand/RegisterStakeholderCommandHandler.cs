@@ -19,7 +19,8 @@ public class RegisterStakeholderCommandHandler(IApplicationDbContext context)
             return new RegisterStakeholderCommandResponse
             {
                 Status = false,
-                Message = $"Stakeholder with VAT {command.Vat} already exist"
+                Message = $"Stakeholder with VAT {command.Vat} already exist",
+                Code = 3
             };
         }
 
@@ -42,11 +43,12 @@ public class RegisterStakeholderCommandHandler(IApplicationDbContext context)
         return new RegisterStakeholderCommandResponse
         {
             Status = true,
+            Message = $"Stakeholder with VAT {command.Vat} registered successfully",
+            Code = 4,
             Stakeholder = context
                 .Stakeholders
                 .Where(x => x.Vat.Equals(command.Vat))
                 .FirstOrDefault(),
-            Message = $"Stakeholder with VAT {command.Vat} registered successfully"
         };
     }
 }

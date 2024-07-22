@@ -4,6 +4,8 @@ using StayConfirmed.BusinessLogic.CommandExecutor;
 using StayConfirmed.WebApi.Dto.Registration;
 using StayConfirmed.BusinessLogic.Commands.RegistrationCommands.RegisterCommand;
 using StayConfirmed.BusinessLogic.Commands.StakeholderCommands.DeleteStakeholderCommand;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StayConfirmed.WebApi.Controllers
 {
@@ -35,7 +37,7 @@ namespace StayConfirmed.WebApi.Controllers
 
             if (!stakeholderResult.Status)
             {
-                return BadRequest(stakeholderResult.Message);
+                return BadRequest(stakeholderResult);
             }
 
             var user = new DataAccess.Entities.User
@@ -49,25 +51,30 @@ namespace StayConfirmed.WebApi.Controllers
 
             var result = await userManager.CreateAsync(user, register.Password);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return Ok("Registration successful");
-            }
-
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
+                StringBuilder errors = new();
+                foreach (var error in result.Errors)
+                {
+                    errors.AppendLine(error.Description);
+                }
                 var stakeholderDeleteResult = await commandInvoker.Invoke(new DeleteStakeholderCommandRequest
                 {
                     Vat = register.Vat,
                 });
                 if (!stakeholderDeleteResult.Status)
                 {
-                    ModelState.AddModelError(string.Empty, stakeholderDeleteResult.Message);
+                    errors.AppendLine(stakeholderDeleteResult.Message);
                 }
+                return BadRequest(new RegisterStakeholderCommandResponse
+                {
+                    Status = false,
+                    Message = errors.ToString(),
+                    Code = 5
+                });
             }
 
-            return BadRequest(ModelState);
+            return Ok(stakeholderResult);
         }
     }
 }

@@ -13,10 +13,13 @@ public class GetUserQueryHandler(IApplicationDbContext context)
         var user = context.Users.Where(u => u.Email.Equals(command.Email)).FirstOrDefault();
         var result = new GetUserQueryResponse
         {
-            UserModel = new UserModel
+            Status = true,
+            Message = "User data",
+            Code = 2,
+            Data = new UserModel
             {
                 Secret = user.Secret,
-                IsActive = user.IsActive,
+                IsActive = user.IsActive
             }
         };
 

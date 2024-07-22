@@ -16,10 +16,19 @@ public class GetUserStatusQueryHandler(IApplicationDbContext context,
             .Select(u => u.IsActive)
         .FirstOrDefault();
 
-        var result = new GetUserStatusQueryResponse
+        var result = new GetUserStatusQueryResponse();
+        if (userStatus)
         {
-            IsActive = userStatus
-        };
+            result.Status = userStatus;
+            result.Message = "User is active";
+            result.Code = 0;
+        }
+        else 
+        {
+            result.Status = userStatus;
+            result.Message = "User is not active";
+            result.Code = 1;
+        }
 
         return Task.FromResult(result);
     }

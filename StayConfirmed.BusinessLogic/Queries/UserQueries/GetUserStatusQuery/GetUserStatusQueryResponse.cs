@@ -2,5 +2,7 @@
 
 public class GetUserStatusQueryResponse
 {
-    public bool IsActive { get; set; }
+    public bool Status { get; set; }
+    public string Message { get; set; }
+    public int Code { get; set; }
 }

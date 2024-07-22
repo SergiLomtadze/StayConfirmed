@@ -19,9 +19,9 @@ namespace StayConfirmed.WebApi.Controllers.User
         public async Task<ActionResult<string>> GetUserSecret(string email)
         {
             var userStatusResponse = await commandInvoker.Invoke(new GetUserStatusQueryRequest());
-            if (!userStatusResponse.IsActive)
+            if (!userStatusResponse.Status)
             {
-                return BadRequest("User Not Active");
+                return BadRequest(userStatusResponse);
             }
 
 
@@ -29,7 +29,7 @@ namespace StayConfirmed.WebApi.Controllers.User
             {
                 Email = email
             });
-            return Ok(result.UserModel.Secret);
+            return Ok(result);
         }
 
         [HttpPost("RequestUserActivation")]

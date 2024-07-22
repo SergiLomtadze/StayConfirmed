@@ -4,5 +4,8 @@ namespace StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserQuery;
 
 public class GetUserQueryResponse
 {
-    public UserModel UserModel { get; set; }
+    public bool Status { get; set; }
+    public string Message { get; set; }
+    public int Code { get; set; }
+    public UserModel Data { get; set; }
 }
