@@ -12,9 +12,17 @@ public class GetAllStakeholdersQueryHandler(IApplicationDbContext context)
     {
         try
         {
-            var stakeholders = await context.Stakeholders.ToListAsync();
+            var stakeholders = context.Stakeholders.AsQueryable();
 
-            if (stakeholders.Count == 0)
+            if (command.Id is not null)
+            {
+                stakeholders = stakeholders
+                    .Where(x => x.IdStakeholder == command.Id);
+            }
+
+            bool anyStakeholders = await stakeholders.AnyAsync();
+
+            if (!anyStakeholders)
             {
                 return new GetAllStakeholdersQueryResponse
                 {
