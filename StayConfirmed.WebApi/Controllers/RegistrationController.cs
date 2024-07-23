@@ -5,6 +5,8 @@ using StayConfirmed.WebApi.Dto.Registration;
 using StayConfirmed.BusinessLogic.Commands.RegistrationCommands.RegisterCommand;
 using StayConfirmed.BusinessLogic.Commands.StakeholderCommands.DeleteStakeholderCommand;
 using System.Text;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using StayConfirmed.BusinessLogic.Queries.StakeholderQueries.GetAllStakeholdersQuery;
 
 namespace StayConfirmed.WebApi.Controllers
 {
@@ -74,6 +76,59 @@ namespace StayConfirmed.WebApi.Controllers
             }
 
             return Ok(stakeholderResult);
+        }
+
+        [HttpPost("RegisterUserOnStakeholder")]
+        public async Task<ActionResult<string>> RegisterUserOnStakeholder([FromBody] RegisterUserOnStakeholderDto registerUserOnStakeholder)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var stakeholderResult = await commandInvoker.Invoke(new GetAllStakeholdersQueryRequest
+            {
+                Id = registerUserOnStakeholder.StakeholderId,
+            });
+
+            if (!stakeholderResult.Status)
+            {
+                return BadRequest(stakeholderResult);
+            }
+
+            var user = new DataAccess.Entities.User
+            {
+                UserName = registerUserOnStakeholder.UserEmail,
+                Email = registerUserOnStakeholder.UserEmail,
+                IdStakeholder = registerUserOnStakeholder.StakeholderId,
+                Name = registerUserOnStakeholder.UserName,
+                Surname = registerUserOnStakeholder.UserSurname
+            };
+
+            var result = await userManager.CreateAsync(user, registerUserOnStakeholder.Password);
+
+            if (!result.Succeeded)
+            {
+                StringBuilder errors = new();
+                foreach (var error in result.Errors)
+                {
+                    errors.AppendLine(error.Description);
+                }
+
+                return BadRequest(new RegisterUserOnStakeholderResponse
+                {
+                    Status = false,
+                    Message = errors.ToString(),
+                    Code = 12
+                });
+            }
+
+            return Ok(new RegisterUserOnStakeholderResponse
+            {
+                Status = true,
+                Message = "User successfully registered on stakeholder",
+                Code = 13
+            });
         }
     }
 }
