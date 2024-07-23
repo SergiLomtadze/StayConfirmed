@@ -9,6 +9,8 @@ public class StakeholderEntityConfiguration : IEntityTypeConfiguration<Stakehold
 {
     public void Configure(EntityTypeBuilder<Stakeholder> builder)
     {
+        builder.Property(s => s.IsActive)
+                .HasDefaultValue(true);
         builder.Property(s => s.Name)
                .HasMaxLength(200)
                .IsUnicode(true);

@@ -12,7 +12,9 @@ public class GetAllStakeholdersQueryHandler(IApplicationDbContext context)
     {
         try
         {
-            var stakeholders = context.Stakeholders.AsQueryable();
+            var stakeholders = context.Stakeholders
+                .Where(x => x.IsActive)
+                .AsQueryable();
 
             if (command.Id is not null)
             {

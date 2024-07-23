@@ -6,6 +6,7 @@ using StayConfirmed.BusinessLogic.Commands.UserCommands.ForgotPassowrdCommand;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.ResetPasswordCommand;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.UserActivationCommand;
 using StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserQuery;
+using StayConfirmed.BusinessLogic.Queries.UserQueries.GetUsersByStakeholderIdQuery;
 using StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserStatusQuery;
 using StayConfirmed.WebApi.Dto.User;
 using StayConfirmed.WebApi.Dto.UserDto;
@@ -114,4 +115,18 @@ public class UserController(CommandInvoker commandInvoker) : ControllerBase
         }
     }
 
+    [HttpGet("GetUsersByStakeholderId")]
+    public async Task<ActionResult<string>> GetUsersByStakeholderId(int stakeholderId)
+    {
+        var users = await commandInvoker.Invoke(new GetUsersByStakeholderIdQueryRequest 
+        {
+            StakeholderId = stakeholderId
+        });
+        if (!users.Status)
+        {
+            return BadRequest(users);
+        }
+
+        return Ok(users);
+    }
 }
