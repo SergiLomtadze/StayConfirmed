@@ -2,15 +2,15 @@ import { classNames } from 'primereact/utils';
 import React, { useContext, useEffect, useRef } from 'react';
 import { Tooltip } from 'primereact/tooltip';
 import { LayoutContext } from './context/layoutcontext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '../../Common/Icons/Icon';
 import AuthService from '../../Helpers/Authentication/AuthService';
 
 const AppMenuProfile = () => {
     const { layoutState, layoutConfig, isSlim, isHorizontal, onMenuProfileToggle } = useContext(LayoutContext);
-    const navigate = useNavigate();
     const location = useLocation();
     const ulRef = useRef<HTMLUListElement | null>(null);
+    const navigate = useNavigate();
 
     const hiddenClassName = classNames({ hidden: layoutConfig.menuMode === 'drawer' && !layoutState.sidebarActive });
 
@@ -64,7 +64,9 @@ const AppMenuProfile = () => {
                     {layoutState.menuProfileActive && (
                         <>
                             <li>
-                                <button className="p-link" onClick={() => AuthService.logout}>
+                                <button className="p-link" onClick={() => {
+                                    AuthService.logout();
+                                    navigate('/auth/login', { replace: true }); }}>
                                     <Icon Name="Logout" Classes="pe-5"/>
                                     <span className={hiddenClassName}>Logout</span>
                                 </button>

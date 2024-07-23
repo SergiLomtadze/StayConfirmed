@@ -19,6 +19,7 @@ import TEST from './Pages/TEST/TEST';
 import Register from './Pages/Authentication/Register';
 import { ToastHelper } from './Helpers/ToastHelper'; // Import ToastProvider
 import { AuthProvider } from './Helpers/Authentication/AuthContext';
+import ProtectedRoute from './Helpers/Authentication/ProtectedRoute';
 
 const router = createBrowserRouter([
     {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/',
-        element: <PrivateLayout><Outlet /></PrivateLayout>,
+        element: <ProtectedRoute><PrivateLayout><Outlet /></PrivateLayout></ProtectedRoute>,
         errorElement: <Error />,
         children: [
             { path: Paths['Home'].value, element: <TEST /> }

@@ -28,8 +28,7 @@ export const Login: React.FC = () => {
     const onSubmit = async (data: FormData) => {
         try {
             const response = await AuthService.login(data.Email, data.Password);
-            navigate(Paths['Home'].value); // Assuming you have a Dashboard route
-            showToast('success', 'Success', t("Auth.Login.Success"));
+            navigate(Paths['Home'].value);
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 showToast('error', 'Error', error.response?.data.message || t("Auth.Login.Fail"));

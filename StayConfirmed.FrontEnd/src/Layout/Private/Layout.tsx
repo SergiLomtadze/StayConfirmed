@@ -1,41 +1,17 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import React, { useCallback, useContext, useRef } from 'react';
 import { LayoutContext } from './context/layoutcontext';
-import { classNames, DomHandler } from 'primereact/utils';
-import { useEventListener, useMountEffect, useResizeListener, useUnmountEffect } from 'primereact/hooks';
+import { classNames} from 'primereact/utils';
+import { useMountEffect, useUnmountEffect } from 'primereact/hooks';
 import { PrimeReactContext } from 'primereact/api';
 import AppSidebar from './AppSidebar';
 import AppTopbar from './AppTopbar';
-import AppBreadcrumb from './AppBreadCrumb';
-import type { AppTopbarRef, ChildContainerProps } from './layout';
 
 const Layout = (props: ChildContainerProps) => {
-    const { layoutConfig, layoutState, setLayoutState, setLayoutConfig, isSlim, isSlimPlus, isHorizontal, isDesktop, isSidebarActive } = useContext(LayoutContext);
+    const { layoutConfig, layoutState, setLayoutState} = useContext(LayoutContext);
     const { setRipple } = useContext(PrimeReactContext);
     const topbarRef = useRef<AppTopbarRef>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
-    const location = useLocation();
-    const [searchParams] = useSearchParams();
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    const hideMenu = useCallback(() => {
-        setLayoutState((prevLayoutState) => ({
-            ...prevLayoutState,
-            overlayMenuActive: false,
-            overlaySubmenuActive: false,
-            staticMenuMobileActive: false,
-            menuHoverActive: false,
-            resetMenu: (isSlim() || isSlimPlus() || isHorizontal()) && isDesktop()
-        }));
-    }, [isSlim, isSlimPlus, isHorizontal, isDesktop, setLayoutState]);
-
-    const blockBodyScroll = useCallback(() => {
-        document.body.classList.add('blocked-scroll');
-    }, []);
-
-    const unblockBodyScroll = useCallback(() => {
-        document.body.classList.remove('blocked-scroll');
-    }, []);
 
     useMountEffect(() => {
         setRipple?.(layoutConfig.ripple);
@@ -67,53 +43,7 @@ const Layout = (props: ChildContainerProps) => {
         }
     }, [layoutState.anchored, setLayoutState]);
 
-    const [bindMenuOutsideClickListener, unbindMenuOutsideClickListener] = useEventListener({
-        type: 'click',
-        listener: (event) => {
-            const isOutsideClicked = !(
-                sidebarRef.current?.isSameNode(event.target as Node) ||
-                sidebarRef.current?.contains(event.target as Node) ||
-                topbarRef.current?.menubutton?.isSameNode(event.target as Node) ||
-                topbarRef.current?.menubutton?.contains(event.target as Node)
-            );
-
-            if (isOutsideClicked) {
-                hideMenu();
-            }
-        }
-    });
-
-    const [bindDocumentResizeListener, unbindDocumentResizeListener] = useResizeListener({
-        listener: () => {
-            if (isDesktop() && !DomHandler.isTouchDevice()) {
-                hideMenu();
-            }
-        }
-    });
-
-    useEffect(() => {
-        if (isSidebarActive()) {
-            bindMenuOutsideClickListener();
-        }
-
-        if (layoutState.staticMenuMobileActive) {
-            blockBodyScroll();
-            (isSlim() || isSlimPlus() || isHorizontal()) && bindDocumentResizeListener();
-        }
-
-        return () => {
-            unbindMenuOutsideClickListener();
-            unbindDocumentResizeListener();
-            unblockBodyScroll();
-        };
-    }, [isSidebarActive, layoutState.staticMenuMobileActive, isSlim, isSlimPlus, isHorizontal, bindMenuOutsideClickListener, unbindMenuOutsideClickListener, bindDocumentResizeListener, unbindDocumentResizeListener, blockBodyScroll, unblockBodyScroll]);
-
-    useEffect(() => {
-        hideMenu();
-    }, [location, searchParams, hideMenu]);
-
     useUnmountEffect(() => {
-        unbindMenuOutsideClickListener();
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
