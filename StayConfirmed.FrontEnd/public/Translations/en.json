@@ -23,7 +23,46 @@
       "Header": "StayConfirmed",
       "SubHeader": "Please use the form to sign-in StayConfirmed network",
       "Button": "Login",
-      "Link": "Forgot Password?"
+      "Link": "Forgot Password?",
+      "Register": "User does not exist?",
+      "Form": {
+        "Required": "is required",
+        "User": {
+          "Username": "Email",
+          "Password": "Password"
+        }
+      }
+    },
+    "Register": {
+      "Header": "Register",
+      "Button": "Register",
+      "Link": "Return to Login",
+      "Success": "Registration completed with success, click on below link to go to login",
+      "Form": {
+        "Required": "is required",
+        "Invalid": "is invalid",
+        "Mismatch": "mismatch",
+        "Company": {
+          "Header": "Company Informations",
+          "Name": "Name",
+          "VAT": "VAT",
+          "Phone": "Phone",
+          "Email": "Email",
+          "Address": "Address",
+          "City": "City",
+          "ZIP": "ZIP",
+          "Region": "Region",
+          "Province": "Province"
+        },
+        "User": {
+          "Header": "User Informations",
+          "Name": "Name",
+          "Surname": "Surname",
+          "Email": "Email",
+          "Password": "Password",
+          "PasswordRepeat": "Confirm Password"
+        }
+      }
     },
     "ResetPassword": {
       "Header": "StayConfirmed",

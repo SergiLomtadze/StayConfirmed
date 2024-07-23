@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     }, [i18n.language]);
 
     return (
-        <div className="bg-primary-reverse bg-primary-50">
+        <div className="">
             <div className="flex justify-content-end me-3">
                 <button
                     className={`btn btn-language`}
@@ -47,8 +47,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         }} />
                 </button>
             </div>
-            <div className="flex justify-content-center">
-                <div className="w-full lg:w-5 h-screen text-center flex justify-content-center align-items-start">
+            <div className="w-100 justify-content-center">
+                <div className="w-100 text-center flex justify-content-center align-items-start">
                     {children}
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" className="svg-background" viewBox="0 0 1440 250" preserveAspectRatio="xMidYMid slice">

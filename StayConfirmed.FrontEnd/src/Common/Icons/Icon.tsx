@@ -9,7 +9,7 @@ interface IconsData {
     [key: string]: { value: string };
 }
 
-export const Icon: React.FC<IconProps> = ({ Name, Classes }) => {
+export const Icon: React.FC<IconProps> = ({ Name, Classes = null }) => {
     const [icons, setIcons] = useState<IconsData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

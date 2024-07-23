@@ -9,7 +9,11 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="public\images\" />
+    <None Remove="public\images\**" />
+    <TypeScriptConfiguration Remove="public\images\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\Helpers\Authentication\" />
     <Folder Include="src\Layout\Public\" />
   </ItemGroup>
 </Project>
