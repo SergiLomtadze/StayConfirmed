@@ -34,7 +34,7 @@ public class UserActivationCommandHandler(IDataProtectionProvider protectionProv
                 From = from,
                 To = to,
                 Subject = "Stayconfirmed User Activation",
-                Body = UserActivatioEmailBody(token),
+                Body = UserActivatioEmailBody(token, command.Path),
                 isBodyHtml = true,
                 Smtp = "15",
             };
@@ -64,13 +64,11 @@ public class UserActivationCommandHandler(IDataProtectionProvider protectionProv
         }
     }
 
-    private string UserActivatioEmailBody(string token)
+    private static string UserActivatioEmailBody(string token, string path)
     {
-        string page = "https://localhost:7195/api/User/ActivateUser";
-
         var result = new StringBuilder();
 
-        result.Append($"<h2 style='text-align: center;'> To activate user please go to link:<a href=\"{page}?token={token}\"> {page} </a> </h2>");
+        result.Append($"<h2 style='text-align: center;'> To activate user please go to link:<a href=\"{path}?token={token}\"> {path} </a> </h2>");
 
         return result.ToString();
     }

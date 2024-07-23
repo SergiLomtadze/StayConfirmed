@@ -8,6 +8,7 @@ using StayConfirmed.BusinessLogic.Commands.UserCommands.ForgotPassowrdCommand;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.ResetPasswordCommand;
 using StayConfirmed.BusinessLogic.Commands.UserCommands.UserActivationCommand;
 using StayConfirmed.BusinessLogic.Queries.CsvQueries.ExportTemplateQuery;
+using StayConfirmed.BusinessLogic.Queries.StakeholderQueries.GetAllStakeholdersQuery;
 using StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserQuery;
 using StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserStatusQuery;
 
@@ -28,5 +29,6 @@ public static class BusinessLogicServicesExtentions
         services.AddScoped<ICommandHandler<ResetPasswordCommandRequest, ResetPasswordCommandResponse>, ResetPasswordCommandHandler>();
         services.AddScoped<ICommandHandler<RegisterStakeholderCommandRequest, RegisterStakeholderCommandResponse>, RegisterStakeholderCommandHandler>();
         services.AddScoped<ICommandHandler<DeleteStakeholderCommandRequest, DeleteStakeholderCommandResponse>, DeleteStakeholderCommandHandler>();
+        services.AddScoped<ICommandHandler<GetAllStakeholdersQueryRequest, GetAllStakeholdersQueryResponse>, GetAllStakeholdersQueryHandler>();
     }
 }

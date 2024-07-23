@@ -1,6 +1,5 @@
 ﻿using StayConfirmed.BusinessLogic.CommandExecutor;
 using StayConfirmed.BusinessLogic.Interfaces;
-using StayConfirmed.BusinessLogic.Models;
 using StayConfirmed.BusinessLogic.Models.User;
 
 namespace StayConfirmed.BusinessLogic.Queries.UserQueries.GetUserQuery;
@@ -23,6 +22,6 @@ public class GetUserQueryHandler(IApplicationDbContext context)
             }
         };
 
-        return Task.FromResult(result);;
+        return Task.FromResult(result);
     }
 }

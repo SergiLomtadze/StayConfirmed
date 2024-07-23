@@ -5,7 +5,6 @@ using StayConfirmed.WebApi.Dto.Registration;
 using StayConfirmed.BusinessLogic.Commands.RegistrationCommands.RegisterCommand;
 using StayConfirmed.BusinessLogic.Commands.StakeholderCommands.DeleteStakeholderCommand;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StayConfirmed.WebApi.Controllers
 {
