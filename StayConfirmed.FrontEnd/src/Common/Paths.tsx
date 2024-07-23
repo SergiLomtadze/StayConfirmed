@@ -6,6 +6,9 @@ export const Paths: { [key: string]: PathValue } = {
     Login: {
         value: '/auth/login'
     },
+    Register: {
+        value: '/auth/register'
+    },
     ResetPassword: {
         value: '/auth/reset-password'
     },
@@ -15,7 +18,16 @@ export const Paths: { [key: string]: PathValue } = {
     ActivateUserRequest: {
         value: "/auth/activate-user-request"
     },
+    Home: {
+        value: "/"
+    },
+    LogoFull: {
+        value: "images/logo-white.png"
+    },
     Logo: {
         value: "images/logo-white.png"
     },
+    Icon: {
+        value: "images/icon.png"
+    }
 };

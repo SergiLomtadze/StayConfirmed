@@ -1,43 +1,88 @@
-import React, { ReactNode } from 'react';
+import React, { useCallback, useContext, useRef } from 'react';
+import { LayoutContext } from './context/layoutcontext';
+import { classNames} from 'primereact/utils';
+import { useMountEffect, useUnmountEffect } from 'primereact/hooks';
+import { PrimeReactContext } from 'primereact/api';
+import AppSidebar from './AppSidebar';
+import AppTopbar from './AppTopbar';
 
-interface LayoutProps {
-    children: ReactNode;
-}
+const Layout = (props: ChildContainerProps) => {
+    const { layoutConfig, layoutState, setLayoutState} = useContext(LayoutContext);
+    const { setRipple } = useContext(PrimeReactContext);
+    const topbarRef = useRef<AppTopbarRef>(null);
+    const sidebarRef = useRef<HTMLDivElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+    useMountEffect(() => {
+        setRipple?.(layoutConfig.ripple);
+    });
+
+    const onMouseEnter = useCallback(() => {
+        if (!layoutState.anchored) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+            setLayoutState((prevLayoutState) => ({
+                ...prevLayoutState,
+                sidebarActive: true
+            }));
+        }
+    }, [layoutState.anchored, setLayoutState]);
+
+    const onMouseLeave = useCallback(() => {
+        if (!layoutState.anchored) {
+            if (!timeoutRef.current) {
+                timeoutRef.current = setTimeout(() => {
+                    setLayoutState((prevLayoutState) => ({
+                        ...prevLayoutState,
+                        sidebarActive: false
+                    }));
+                }, 300);
+            }
+        }
+    }, [layoutState.anchored, setLayoutState]);
+
+    useUnmountEffect(() => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+    });
+
+    const containerClassName = classNames('layout-topbar-' + layoutConfig.topbarTheme, 'layout-menu-' + layoutConfig.menuTheme, 'layout-menu-profile-' + layoutConfig.menuProfilePosition, {
+        'layout-overlay': layoutConfig.menuMode === 'overlay',
+        'layout-static': layoutConfig.menuMode === 'static',
+        'layout-slim': layoutConfig.menuMode === 'slim',
+        'layout-slim-plus': layoutConfig.menuMode === 'slim-plus',
+        'layout-horizontal': layoutConfig.menuMode === 'horizontal',
+        'layout-reveal': layoutConfig.menuMode === 'reveal',
+        'layout-drawer': layoutConfig.menuMode === 'drawer',
+        'p-input-filled': layoutConfig.inputStyle === 'filled',
+        'layout-sidebar-dark': layoutConfig.colorScheme === 'dark',
+        'p-ripple-disabled': !layoutConfig.ripple,
+        'layout-static-inactive': layoutState.staticMenuDesktopInactive && layoutConfig.menuMode === 'static',
+        'layout-overlay-active': layoutState.overlayMenuActive,
+        'layout-mobile-active': layoutState.staticMenuMobileActive,
+        'layout-topbar-menu-active': layoutState.topbarMenuActive,
+        'layout-menu-profile-active': layoutState.menuProfileActive,
+        'layout-sidebar-active': layoutState.sidebarActive,
+        'layout-sidebar-anchored': layoutState.anchored
+    });
+
     return (
-        <div className="bg-primary-reverse bg-primary-50">
-            <div className="flex justify-content-center">
-                <div className="w-full lg:w-5 h-screen text-center flex justify-content-center align-items-start">
-                    {children}
+        <React.Fragment>
+            <div className={classNames('layout-container', containerClassName)}>
+                <AppTopbar ref={topbarRef} />
+                <div ref={sidebarRef} className="layout-sidebar" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                    <AppSidebar />
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" className="absolute bottom-0 w-screen" viewBox="0 0 1440 250">
-                    <defs>
-                        <linearGradient id="c" x1="50%" x2="50%" y1="0%" y2="100%">
-                            <stop offset="0%" stopColor="var(--primary-200)" />
-                            <stop offset="99.052%" stopColor="var(--primary-300)" />
-                        </linearGradient>
-                        <path id="b" d="M0 202c142.333-66.667 249-90 320-70 106.5 30 122 83.5 195 83.5h292c92.642-106.477 190.309-160.81 293-163 102.691-2.19 216.025 47.643 340 149.5v155.5H0V202z" />
-                        <filter id="a" width="105.1%" height="124.3%" x="-2.6%" y="-12.8%" filterUnits="objectBoundingBox">
-                            <feOffset dy="-2" in="SourceAlpha" result="shadowOffsetOuter1" />
-                            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="12" />
-                            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.11 0" />
-                        </filter>
-                        <linearGradient id="d" x1="50%" x2="50%" y1="0%" y2="99.142%">
-                            <stop offset="0%" stopColor="var(--primary-300)" />
-                            <stop offset="100%" stopColor="var(--primary-500)" />
-                        </linearGradient>
-                    </defs>
-                    <g fill="none" fillRule="evenodd">
-                        <g transform="translate(0 .5)">
-                            <use fill="#000" filter="url(#a)" xlinkHref="#b" />
-                            <use fill="url(#c)" xlinkHref="#b" />
-                        </g>
-                        <path fill="url(#d)" d="M0 107c225.333 61.333 364.333 92 417 92 79 0 194-79.5 293-79.5S914 244 1002 244s156-45 195-68.5c26-15.667 107-74.167 243-175.5v357.5H0V107z" transform="translate(0 .5)" />
-                    </g>
-                </svg>
+                <div className="layout-content-wrapper">
+                    <div>
+                        <div className="layout-content">{props.children}</div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </React.Fragment>
     );
 };
 
